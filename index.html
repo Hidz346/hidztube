@@ -1,0 +1,744 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <link rel="icon" type="image/png" href="https://www.gobox.my.id/file/IcHjU.png" />
+    <link rel="apple-touch-icon" href="https://www.gobox.my.id/file/IcHjU.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Hidz | Tube" />
+    <meta property="og:description" content="Streaming film, serial, dan video favorit kamu secara gratis. Nonton sekarang tayangan terbaru dengan kualitas HD dan tanpa IKLAN." />
+    <meta property="og:image" content="https://i.ibb.co.com/YBBY4t9T/IMG-20260501-WA0119.jpg" />
+    <meta property="og:url" content="https://nanzztube.vercel.app" />
+    <meta property="og:site_name" content="HidzTube" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Hidz | Tube" />
+    <meta name="twitter:description" content="Streaming film, serial, dan video favorit kamu secara gratis. Nonton sekarang tayangan terbaru dengan kualitas HD." />
+    <meta name="twitter:image" content="https://i.ibb.co.com/YBBY4t9T/IMG-20260501-WA0119.jpg" />
+
+    <title>Hidz | Tube</title>
+
+    <!-- Fonts: Orbitron · Space Grotesk · Space Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+
+    <style>
+      /* ============================================================
+         HIDZTUBE — NEOBRUTALISM × Y2K
+         Yellow #facc15 · Cyan #00ffff · Pink #ff0099
+         Orbitron (display) · Space Grotesk (body) · Space Mono (mono)
+      ============================================================ */
+
+      :root {
+        --y: #facc15;   /* electric yellow */
+        --c: #00ffff;   /* neon cyan */
+        --p: #ff0099;   /* neon pink */
+        --bg:  #090909;
+        --bgc: #111111;
+        --bgs: #1a1a1a;
+        --border: rgba(255, 255, 255, 0.2);
+        --muted: #6b7280;
+      }
+
+      *, *::before, *::after { box-sizing: border-box; }
+
+      body {
+        background-color: var(--bg);
+        color: #fff;
+        font-family: 'Space Grotesk', sans-serif;
+        overflow-x: hidden;
+        width: 100vw;
+      }
+
+      ::selection { background: var(--y); color: #000; }
+
+      /* ── Scrollbar ── */
+      ::-webkit-scrollbar       { width: 5px; }
+      ::-webkit-scrollbar-track { background: var(--bg); }
+      ::-webkit-scrollbar-thumb { background: var(--y); border-radius: 0; }
+      ::-webkit-scrollbar-thumb:hover { background: var(--c); }
+
+      /* ── Animations ── */
+      .fade-in { animation: fadeIn 0.45s ease forwards; }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      /* Y2K glitch on logo */
+      @keyframes glitch {
+        0%,88%,100% { text-shadow: none; }
+        89% { text-shadow: 2px 0 var(--p), -2px 0 var(--c); }
+        90% { text-shadow: -3px 0 var(--y), 3px 0 var(--c); }
+        91% { text-shadow: none; }
+      }
+
+      /* Scanline flicker */
+      @keyframes scanpulse {
+        0%,100% { opacity: 0.05; }
+        50%      { opacity: 0.1; }
+      }
+
+      /* ============================================================
+         NAVBAR
+      ============================================================ */
+      #navbar {
+        /* ID beats any Tailwind class — always solid dark + yellow border */
+        background: var(--bg) !important;
+        background-image: none !important;
+        border-bottom: 3px solid var(--y);
+        box-shadow: none !important;
+      }
+
+      .logo-hidz {
+        font-family: 'Orbitron', monospace;
+        font-weight: 900;
+        color: var(--y);
+        letter-spacing: 0.12em;
+        cursor: pointer;
+        animation: glitch 7s infinite;
+        transition: color 0.2s;
+      }
+      .logo-hidz:hover { color: var(--c); }
+
+      .nav-link {
+        font-family: 'Orbitron', monospace;
+        font-size: 0.62rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.55);
+        position: relative;
+        transition: color 0.2s;
+        cursor: pointer;
+      }
+      .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 0; height: 2px;
+        bottom: -4px; left: 0;
+        background: var(--y);
+        transition: width 0.2s;
+      }
+      .nav-link:hover             { color: var(--y); }
+      .nav-link:hover::after      { width: 100%; }
+      .nav-link.active            { color: var(--y); }
+      .nav-link.active::after     { width: 100%; }
+
+      /* Search */
+      .search-box {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--bgs);
+        border: 2px solid var(--border);
+        padding: 6px 12px;
+        transition: border-color 0.2s, box-shadow 0.2s;
+      }
+      .search-box:focus-within {
+        border-color: var(--y);
+        box-shadow: 3px 3px 0 var(--y);
+      }
+      .search-box input {
+        background: transparent;
+        border: none; outline: none;
+        color: #fff;
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 0.8rem;
+        width: 72px;
+        transition: width 0.3s;
+      }
+      .search-box input::placeholder { color: var(--muted); }
+      .search-box:focus-within input { width: 130px; }
+      @media (min-width: 640px) {
+        .search-box input { width: 100px; }
+        .search-box:focus-within input { width: 170px; }
+      }
+      .search-icon { color: var(--muted); font-size: 0.82rem; transition: color 0.2s; }
+      .search-box:focus-within .search-icon { color: var(--y); }
+
+      /* User avatar */
+      .user-avatar {
+        width: 36px; height: 36px;
+        background: var(--bgs);
+        border: 2px solid var(--border);
+        display: flex; align-items: center; justify-content: center;
+        cursor: pointer;
+        transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+      }
+      .user-avatar:hover {
+        border-color: var(--y);
+        box-shadow: 2px 2px 0 var(--y);
+        transform: translate(-1px,-1px);
+      }
+
+      /* ============================================================
+         LOADER
+      ============================================================ */
+      #loader { background: var(--bg); }
+      .loader-icon  { color: var(--y); }
+      .loader-label {
+        font-family: 'Orbitron', monospace;
+        font-size: 0.68rem;
+        letter-spacing: 0.4em;
+        color: var(--y);
+        animation: pulse 1.5s infinite;
+      }
+
+      /* ============================================================
+         ERROR STATE
+      ============================================================ */
+      #error-message { background: var(--bg); }
+
+      .btn-reconnect {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--y);
+        color: #000;
+        font-family: 'Orbitron', monospace;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 12px 28px;
+        border: 2px solid #fff;
+        box-shadow: 4px 4px 0 var(--c);
+        cursor: pointer;
+        transition: box-shadow 0.15s, transform 0.15s;
+      }
+      .btn-reconnect:hover  { box-shadow: 6px 6px 0 var(--p); transform: translate(-2px,-2px); }
+      .btn-reconnect:active { box-shadow: 1px 1px 0 var(--c); transform: translate(3px,3px); }
+
+      /* ============================================================
+         HERO
+      ============================================================ */
+      /* Y2K scanlines overlay */
+      .scanlines {
+        position: absolute; inset: 0; z-index: 3; pointer-events: none;
+        background: repeating-linear-gradient(
+          0deg,
+          transparent 0px, transparent 2px,
+          rgba(0,0,0,0.1) 2px, rgba(0,0,0,0.1) 4px
+        );
+        animation: scanpulse 3s ease-in-out infinite;
+      }
+
+      /* HUD corner brackets */
+      .hud-corner {
+        position: absolute; z-index: 4; width: 22px; height: 22px; pointer-events: none;
+      }
+      .hud-corner.tl { top: 76px; left: 14px; border-top: 2px solid var(--c); border-left: 2px solid var(--c); }
+      .hud-corner.tr { top: 76px; right: 14px; border-top: 2px solid var(--c); border-right: 2px solid var(--c); }
+      .hud-corner.bl { bottom: 2px; left: 14px; border-bottom: 2px solid var(--c); border-left: 2px solid var(--c); }
+      .hud-corner.br { bottom: 2px; right: 14px; border-bottom: 2px solid var(--c); border-right: 2px solid var(--c); }
+      @media (min-width: 640px) {
+        .hud-corner.tl,.hud-corner.bl { left: 28px; }
+        .hud-corner.tr,.hud-corner.br { right: 28px; }
+      }
+      @media (min-width: 1024px) {
+        .hud-corner.tl,.hud-corner.bl { left: 60px; }
+        .hud-corner.tr,.hud-corner.br { right: 60px; }
+      }
+
+      /* NEW badge */
+      .badge-new {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--y);
+        color: #000;
+        font-family: 'Orbitron', monospace;
+        font-size: 0.58rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        padding: 4px 10px;
+        border: 2px solid #000;
+        box-shadow: 2px 2px 0 #000;
+        cursor: default;
+        user-select: none;
+      }
+      .badge-new .dot {
+        width: 6px; height: 6px;
+        background: #000;
+        border-radius: 50%;
+        animation: pulse 1.5s infinite;
+      }
+
+      /* Hero title */
+      .hero-title {
+        font-family: 'Orbitron', monospace;
+        font-weight: 900;
+        text-transform: uppercase;
+        line-height: 1.15;
+        color: #fff;
+        word-break: break-word;
+      }
+
+      /* Hero meta bits */
+      .hero-match {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.7rem;
+        color: var(--c);
+        border: 1px solid var(--c);
+        padding: 2px 8px;
+      }
+      .hero-hd {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.6rem;
+        border: 1px solid rgba(255,255,255,0.3);
+        padding: 1px 6px;
+        color: rgba(255,255,255,0.5);
+      }
+      .hero-desc {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 0.9rem;
+        color: rgba(255,255,255,0.65);
+        line-height: 1.7;
+      }
+
+      /* Buttons */
+      .btn-primary {
+        display: inline-flex; align-items: center; gap: 8px;
+        background: var(--y); color: #000;
+        font-family: 'Orbitron', monospace;
+        font-size: 0.68rem; font-weight: 700;
+        letter-spacing: 0.1em; text-transform: uppercase;
+        padding: 12px 22px;
+        border: 2px solid #fff;
+        box-shadow: 4px 4px 0 var(--c);
+        cursor: pointer; white-space: nowrap;
+        transition: box-shadow 0.15s, transform 0.15s;
+      }
+      .btn-primary:hover  { box-shadow: 6px 6px 0 var(--p); transform: translate(-2px,-2px); }
+      .btn-primary:active { box-shadow: 1px 1px 0 var(--c); transform: translate(3px,3px); }
+
+      .btn-secondary {
+        display: inline-flex; align-items: center; gap: 8px;
+        background: rgba(255,255,255,0.05); color: #fff;
+        font-family: 'Orbitron', monospace;
+        font-size: 0.68rem; font-weight: 700;
+        letter-spacing: 0.1em; text-transform: uppercase;
+        padding: 12px 22px;
+        border: 2px solid rgba(255,255,255,0.35);
+        box-shadow: 4px 4px 0 rgba(255,255,255,0.08);
+        cursor: pointer; white-space: nowrap;
+        transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+      }
+      .btn-secondary:hover  { border-color: var(--c); box-shadow: 4px 4px 0 var(--c); transform: translate(-2px,-2px); }
+      .btn-secondary:active { box-shadow: 1px 1px 0 var(--c); transform: translate(3px,3px); }
+
+      /* ============================================================
+         SECTION HEADING
+      ============================================================ */
+      .section-heading {
+        font-family: 'Orbitron', monospace;
+        font-size: 1rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .section-heading::after {
+        content: '';
+        flex: 1;
+        height: 2px;
+        background: linear-gradient(90deg, var(--y) 0%, transparent 100%);
+        max-width: 90px;
+      }
+
+      /* ============================================================
+         CARDS  (Neobrutalism override — #id selector wins Tailwind)
+      ============================================================ */
+
+      /* card-hover base */
+      .card-hover {
+        transition: box-shadow 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+      }
+
+      /* Override all Tailwind visual classes on cards inside grids */
+      #home-grid .card-hover,
+      #watch-grid .card-hover {
+        background: var(--bgc);
+        border: 2px solid rgba(255,255,255,0.18);
+        box-shadow: 4px 4px 0 var(--y);
+        border-radius: 0;
+      }
+      #home-grid .card-hover:hover,
+      #watch-grid .card-hover:hover {
+        box-shadow: 5px 5px 0 var(--c);
+        transform: translate(-1px,-1px);
+        border-color: rgba(0,255,255,0.38);
+      }
+
+      /* Thumbnail wrapper */
+      .nb-thumb {
+        position: relative;
+        overflow: hidden;
+        background: #0a0a0a;
+        aspect-ratio: 16/9;
+      }
+
+      /* ============================================================
+         WATCH PAGE
+      ============================================================ */
+      .player-wrap {
+        border: 3px solid rgba(255,255,255,0.15);
+        box-shadow: 6px 6px 0 var(--y);
+        background: #000;
+      }
+
+      .watch-title {
+        font-family: 'Orbitron', monospace;
+        font-weight: 900;
+        text-transform: uppercase;
+        line-height: 1.15;
+        word-break: break-word;
+      }
+      .watch-match {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.62rem;
+        background: rgba(250,204,21,0.12);
+        border: 1px solid var(--y);
+        color: var(--y);
+        padding: 2px 8px;
+      }
+      .watch-hd {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.58rem;
+        border: 1px solid rgba(255,255,255,0.25);
+        color: rgba(255,255,255,0.45);
+        padding: 1px 6px;
+      }
+      .watch-desc {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 0.85rem;
+        color: rgba(255,255,255,0.6);
+        line-height: 1.7;
+      }
+
+      /* Action buttons (Daftarku/Nilai/Bagikan) */
+      .action-btn {
+        display: flex; flex-direction: column; align-items: center; gap: 6px;
+        cursor: pointer; color: var(--muted);
+        transition: color 0.2s;
+      }
+      .action-btn:hover { color: var(--y); }
+      .action-icon {
+        width: 44px; height: 44px;
+        background: var(--bgs);
+        border: 2px solid rgba(255,255,255,0.18);
+        box-shadow: 2px 2px 0 rgba(250,204,21,0.35);
+        display: flex; align-items: center; justify-content: center;
+        transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+      }
+      .action-btn:hover .action-icon {
+        border-color: var(--y);
+        box-shadow: 3px 3px 0 var(--y);
+        transform: translate(-1px,-1px);
+      }
+      .action-label {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.55rem;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+
+      iframe { max-width: 100%; }
+    </style>
+  </head>
+
+  <body>
+
+    <!-- ══════════════════════════════════════
+         NAVBAR
+    ══════════════════════════════════════ -->
+    <header
+      id="navbar"
+      class="fixed top-0 w-full z-50 flex items-center justify-between px-4 sm:px-6 py-4 lg:px-12 box-border"
+    >
+      <div class="flex items-center gap-4 lg:gap-10">
+        <div class="flex items-center gap-3">
+          <button
+            id="btn-back"
+            class="hidden text-gray-400 hover:text-white hover:-translate-x-1 transition-all duration-200"
+            onclick="goHome()"
+          >
+            <i class="fas fa-arrow-left text-xl"></i>
+          </button>
+          <img
+            src="https://www.gobox.my.id/file/IcHjU.png"
+            alt="HidzTube Logo"
+            onclick="goHome()"
+            style="width:34px;height:34px;min-width:34px;border-radius:50%;border:2px solid #facc15;object-fit:cover;cursor:pointer;transition:box-shadow 0.2s,transform 0.15s;"
+            onmouseover="this.style.boxShadow='0 0 10px #facc15,0 0 20px rgba(250,204,21,0.35)';this.style.transform='scale(1.08)'"
+            onmouseout="this.style.boxShadow='none';this.style.transform='scale(1)'"
+          />
+          <h1 class="logo-hidz text-xl sm:text-2xl lg:text-3xl" onclick="goHome()">HIDZTUBE</h1>
+        </div>
+
+        <nav class="hidden md:flex gap-6">
+          <span class="nav-link active" onclick="goHome()">Beranda</span>
+          <span class="nav-link">Film</span>
+          <span class="nav-link">Serial</span>
+          <span class="nav-link">Favorit</span>
+        </nav>
+      </div>
+
+      <div class="flex items-center gap-2 sm:gap-4">
+        <form id="search-form" class="search-box">
+          <button type="submit" class="search-icon">
+            <i class="fas fa-search"></i>
+          </button>
+          <input type="text" id="search-input" placeholder="Cari Video" />
+        </form>
+        <div class="user-avatar hidden sm:flex">
+          <i class="fas fa-user text-sm text-gray-400"></i>
+        </div>
+      </div>
+    </header>
+
+    <!-- ══════════════════════════════════════
+         LOADER
+    ══════════════════════════════════════ -->
+    <div
+      id="loader"
+      class="h-screen w-screen flex items-center justify-center fixed inset-0 z-[100] transition-opacity duration-300"
+    >
+      <div class="flex flex-col items-center gap-4">
+        <i class="fas fa-circle-notch fa-spin loader-icon text-5xl"></i>
+        <span class="loader-label">MEMUAT...</span>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         ERROR
+    ══════════════════════════════════════ -->
+    <div
+      id="error-message"
+      class="hidden h-screen w-screen flex-col items-center justify-center text-center px-4 fade-in fixed inset-0 z-[100]"
+    >
+      <i class="fas fa-satellite-dish text-5xl mb-6 animate-pulse" style="color:var(--y)"></i>
+      <h2
+        id="error-text"
+        class="text-2xl font-bold text-white mb-2"
+        style="font-family:'Orbitron',monospace;"
+      >
+        Sinyal terputus.
+      </h2>
+      <p class="mb-8 text-xs" style="color:var(--muted);font-family:'Space Mono',monospace;letter-spacing:0.05em;">
+        Gagal terhubung ke server.
+      </p>
+      <button onclick="fetchVideos('Upin ipin')" class="btn-reconnect">
+        <i class="fas fa-redo text-sm"></i> Koneksikan Ulang
+      </button>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         HOME VIEW
+    ══════════════════════════════════════ -->
+    <main id="home-view" class="hidden w-full overflow-hidden">
+
+      <!-- Hero -->
+      <section class="relative w-full h-[75vh] sm:h-[85vh] min-h-[500px] flex items-center overflow-hidden">
+
+        <!-- Background image layer -->
+        <div class="absolute inset-0 z-0">
+          <img
+            id="hero-img"
+            src=""
+            alt="Banner"
+            class="w-full h-full object-cover transition-all duration-1000 opacity-0 scale-105"
+            onload="this.classList.remove('opacity-0','scale-105')"
+          />
+          <!-- gradient: left bleed -->
+          <div class="absolute inset-0" style="background:linear-gradient(to right,#090909 0%,rgba(9,9,9,0.72) 45%,transparent 100%);"></div>
+          <!-- gradient: bottom bleed -->
+          <div class="absolute inset-0" style="background:linear-gradient(to top,#090909 0%,rgba(9,9,9,0.35) 35%,transparent 65%);"></div>
+        </div>
+
+        <!-- Y2K Scanlines -->
+        <div class="scanlines"></div>
+
+        <!-- HUD corner brackets -->
+        <div class="hud-corner tl"></div>
+        <div class="hud-corner tr"></div>
+        <div class="hud-corner bl"></div>
+        <div class="hud-corner br"></div>
+
+        <!-- Hero content -->
+        <div
+          class="relative z-10 px-4 sm:px-8 lg:px-16 max-w-[100vw] sm:max-w-4xl pt-20 fade-in box-border w-full"
+          style="animation-delay:0.2s"
+        >
+          <!-- BARU badge -->
+          <div class="badge-new mb-5">
+            <div class="dot"></div>
+            BARU
+          </div>
+
+          <!-- Title -->
+          <h2
+            id="hero-title"
+            class="hero-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-5 w-full"
+          >
+            JUDUL FILM
+          </h2>
+
+          <!-- Meta -->
+          <div class="flex flex-wrap items-center gap-3 mb-6">
+            <span class="hero-match">100% Cocok</span>
+            <span
+              id="hero-channel"
+              class="cursor-pointer transition-colors text-sm"
+              style="color:rgba(255,255,255,0.65);font-family:'Space Grotesk',sans-serif;"
+              onmouseover="this.style.color='#facc15'"
+              onmouseout="this.style.color='rgba(255,255,255,0.65)'"
+            >Channel</span>
+            <span id="hero-duration" class="hero-hd">HD</span>
+          </div>
+
+          <!-- Desc -->
+          <p
+            id="hero-desc"
+            class="hero-desc max-w-[90%] sm:max-w-2xl mb-9 line-clamp-3 md:line-clamp-4"
+          >
+            Deskripsi video akan tampil di sini.
+          </p>
+
+          <!-- CTA buttons -->
+          <div class="flex gap-3 sm:gap-4 flex-wrap">
+            <button id="hero-play-btn" class="btn-primary">
+              <i class="fas fa-play text-xs"></i> Tonton Sekarang
+            </button>
+            <button class="btn-secondary">
+              <i class="fas fa-info-circle text-xs"></i> Info Detail
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Video Grid -->
+      <section
+        class="relative z-10 px-4 sm:px-8 lg:px-16 pb-20 -mt-10 sm:-mt-20 fade-in box-border"
+        style="animation-delay:0.4s"
+      >
+        <h3 class="section-heading mb-7">Rekomendasimu</h3>
+        <div
+          id="home-grid"
+          class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 w-full"
+        ></div>
+      </section>
+
+    </main>
+
+    <!-- ══════════════════════════════════════
+         WATCH VIEW
+    ══════════════════════════════════════ -->
+    <main
+      id="watch-view"
+      class="hidden pt-20 sm:pt-24 pb-20 px-4 sm:px-8 lg:px-16 w-full mx-auto max-w-screen-2xl box-border"
+    >
+
+      <!-- Mobile back -->
+      <button
+        onclick="goHome()"
+        class="md:hidden flex items-center gap-2 mb-5 transition-all hover:-translate-x-1"
+        style="color:var(--muted);font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.05em;"
+      >
+        <i class="fas fa-arrow-left"></i> Kembali
+      </button>
+
+      <!-- Video player -->
+      <div class="w-full relative fade-in" style="animation-delay:0.1s">
+        <div class="player-wrap w-full aspect-video overflow-hidden">
+          <iframe
+            id="video-player"
+            class="w-full h-full"
+            src=""
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+
+      <!-- Video info -->
+      <div class="mt-6 md:mt-8 fade-in w-full box-border" style="animation-delay:0.3s">
+
+        <h1 id="watch-title" class="watch-title text-2xl sm:text-3xl md:text-5xl mb-4">
+          JUDUL VIDEO
+        </h1>
+
+        <div class="flex flex-wrap items-center gap-3 sm:gap-4 mb-6 text-xs sm:text-sm">
+          <span class="watch-match">Cocok 98%</span>
+          <span
+            id="watch-channel"
+            class="cursor-pointer transition-colors"
+            style="color:rgba(255,255,255,0.65);font-family:'Space Grotesk',sans-serif;"
+            onmouseover="this.style.color='#facc15'"
+            onmouseout="this.style.color='rgba(255,255,255,0.65)'"
+          >Channel</span>
+          <div class="flex items-center gap-1">
+            <i class="fas fa-star text-sm" style="color:var(--y)"></i>
+            <span id="watch-rating" class="font-bold" style="color:var(--y);font-family:'Space Mono',monospace;">9.5</span>
+          </div>
+          <span id="watch-duration" style="color:var(--muted);font-family:'Space Mono',monospace;">24m</span>
+          <span class="watch-hd">HD</span>
+        </div>
+
+        <p id="watch-desc" class="watch-desc max-w-4xl">
+          Deskripsi video lengkap.
+        </p>
+
+        <!-- Action buttons -->
+        <div class="mt-8 flex gap-6">
+          <div class="action-btn">
+            <div class="action-icon"><i class="fas fa-plus text-sm"></i></div>
+            <span class="action-label">Daftarku</span>
+          </div>
+          <div class="action-btn">
+            <div class="action-icon"><i class="far fa-thumbs-up text-sm"></i></div>
+            <span class="action-label">Nilai</span>
+          </div>
+          <div class="action-btn">
+            <div class="action-icon"><i class="fas fa-share text-sm"></i></div>
+            <span class="action-label">Bagikan</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Related videos -->
+      <div class="mt-12 sm:mt-16 fade-in w-full box-border" style="animation-delay:0.5s">
+        <h3 class="section-heading mb-7">Mirip Seperti Ini</h3>
+        <div
+          id="watch-grid"
+          class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4 w-full"
+        ></div>
+      </div>
+
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+      (function () {
+        function removeAds() {
+          var ad = document.getElementById("server-footer-ad");
+          if (ad) ad.remove();
+          document.querySelectorAll('link[href*="ads.css"]').forEach(function (el) { el.remove(); });
+        }
+        removeAds();
+        new MutationObserver(removeAds).observe(document.documentElement, { childList: true, subtree: true });
+      })();
+    </script>
+  </body>
+</html>
